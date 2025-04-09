@@ -1,8 +1,21 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import Editor, { loader } from "@monaco-editor/react";
+import dynamic from 'next/dynamic';
 import { Play, ChevronDown, Terminal, Loader2 } from "lucide-react";
+
+// Dynamically import the Editor component with SSR disabled
+const MonacoEditor = dynamic(
+  () => import('@monaco-editor/react').then(mod => mod.default),
+  { ssr: false, loading: () => (
+    <div className="flex items-center justify-center h-[60vh] bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm">
+      <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
+        <Loader2 className="w-4 h-4 animate-spin" />
+        Loading editor...
+      </div>
+    </div>
+  )}
+);
 
 const languages = [
   { value: "javascript", label: "JavaScript" },
@@ -18,16 +31,10 @@ const themes = [
   { value: "light", label: "Light" },
 ];
 
-// Configure Monaco Editor loader
-if (typeof window !== 'undefined') {
-  loader.config({
-    paths: {
-      vs: 'https://cdn.jsdelivr.net/npm/monaco-editor@0.43.0/min/vs'
-    },
-    'vs/nls': {
-      availableLanguages: { '*': 'en' }
-    }
-  });
+// Define type for Pyodide
+interface Pyodide {
+  runPython: (code: string) => any;
+  runPythonAsync: (code: string) => Promise<any>;
 }
 
 export function CodeEditor() {
@@ -210,7 +217,16 @@ export function CodeEditor() {
   };
 
   if (!mounted) {
-    return null;
+    return (
+      <div className="w-full overflow-hidden border rounded-lg shadow-lg bg-white dark:bg-gray-800">
+        <div className="h-[60vh] flex items-center justify-center">
+          <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
+            <Loader2 className="w-4 h-4 animate-spin" />
+            Loading editor...
+          </div>
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -269,7 +285,7 @@ export function CodeEditor() {
       </div>
 
       <div className="relative">
-        <Editor
+        <MonacoEditor
           height="60vh"
           language={language}
           theme={theme}
@@ -298,14 +314,6 @@ export function CodeEditor() {
             monaco.languages.typescript.javascriptDefaults.setEagerModelSync(true);
             monaco.languages.typescript.typescriptDefaults.setEagerModelSync(true);
           }}
-          loading={
-            <div className="absolute inset-0 flex items-center justify-center bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm">
-              <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
-                <Loader2 className="w-4 h-4 animate-spin" />
-                Loading editor...
-              </div>
-            </div>
-          }
         />
       </div>
       

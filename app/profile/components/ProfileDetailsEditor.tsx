@@ -110,6 +110,8 @@ export default function ProfileDetailsEditor({ initialData, email, name, image }
             src={coverPicture}
             alt="Cover"
             fill
+            sizes="100vw"
+            priority
             className="object-cover"
           />
         )}
@@ -134,6 +136,8 @@ export default function ProfileDetailsEditor({ initialData, email, name, image }
             <Image
               src={image || "/default-avatar.png"}
               alt={name || "User"}
+              width={128}
+              height={128}
               className="w-32 h-32 rounded-full border-4 border-white shadow-lg object-cover"
             />
             <button className="absolute bottom-0 right-0 bg-white rounded-full p-2 shadow-md hover:shadow-lg transition-shadow">
