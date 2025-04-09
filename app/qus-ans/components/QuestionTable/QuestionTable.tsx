@@ -18,8 +18,8 @@ interface QuestionTableProps {
 }
 
 export default function QuestionTable({ cardData }: QuestionTableProps) {
-  const { data: session } = useSession()
-  const router = useRouter()
+  // const { data: session } = useSession()
+  // const router = useRouter()
   const [searchTerm, setSearchTerm] = useState("")
 
   const filteredQuestions = cardData.filter((question) =>

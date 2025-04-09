@@ -2,7 +2,7 @@ import { getServerSession } from "next-auth"
 import { authOptions } from "@/lib/authOptions"
 import { dbConnect, collectionNameObj } from "@/lib/dbConnect"
 import { NextResponse } from "next/server"
-import { ObjectId } from "mongodb"
+
 
 export async function GET() {
     try {

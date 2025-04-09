@@ -22,7 +22,7 @@ interface QuestionBoxProps {
 export default function QuestionBox({ card }: QuestionBoxProps) {
   const { data: session } = useSession()
   const router = useRouter()
-  const [isExpanded, setIsExpanded] = useState(false)
+  // const [isExpanded, setIsExpanded] = useState(false)
 
   const handleClick = () => {
     if (session) {

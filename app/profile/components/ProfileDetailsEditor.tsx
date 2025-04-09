@@ -131,7 +131,7 @@ export default function ProfileDetailsEditor({ initialData, email, name, image }
         {/* Profile Picture */}
         <div className="absolute -top-20 left-8">
           <div className="relative">
-            <img
+            <Image
               src={image || "/default-avatar.png"}
               alt={name || "User"}
               className="w-32 h-32 rounded-full border-4 border-white shadow-lg object-cover"

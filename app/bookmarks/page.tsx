@@ -68,7 +68,7 @@ export default async function BookmarksPage() {
         {/* No Bookmarks Message */}
         {bookmarkedBlogs.length === 0 && bookmarkedQuestions.length === 0 && (
           <div className="text-center text-gray-400">
-            <p className="text-lg">You haven't bookmarked any posts yet.</p>
+            <p className="text-lg">You havenYou haven'tapos;t bookmarked any posts yet.</p>
             <p className="mt-2">Start bookmarking blogs and questions to see them here!</p>
           </div>
         )}

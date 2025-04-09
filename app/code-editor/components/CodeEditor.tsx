@@ -38,7 +38,7 @@ export function CodeEditor() {
   const [isRunning, setIsRunning] = useState(false);
   const [output, setOutput] = useState<string[]>([]);
   const [showOutput, setShowOutput] = useState(true);
-  const [pyodide, setPyodide] = useState<any>(null);
+  const [pyodide, setPyodide] = useState<Pyodide | null>(null);
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
   // Initialize Pyodide for Python execution
@@ -115,7 +115,7 @@ export function CodeEditor() {
       };
 
       const captureConsole = (type: 'log' | 'error' | 'warn' | 'info') => {
-        return (...args: any[]) => {
+        return (...args: unknown[]) => {
           const message = args.map(arg => 
             typeof arg === 'object' ? JSON.stringify(arg, null, 2) : String(arg)
           ).join(' ');
